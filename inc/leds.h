@@ -1,4 +1,3 @@
-
 /************************************************************************************************
 Copyright (c) 2023, Esteban Volentini <evolentini@herrera.unt.edu.ar>
 
@@ -22,47 +21,50 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
+#ifndef LEDS_H
+#define LEDS_H
+
 /** @file
- ** @brief Funciones de TEST del controlador de leds
+ ** @brief Declaraciones publicas de las funciones del controlador LED
  **/
 
 /* === Headers files inclusions
+ * ================================================================ */
+
+#include <stdint.h>
+
+/* === Cabecera C++
+ * ============================================================================
+ */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* === Public macros definitions
  * =============================================================== */
 
-#include "unity.h"
-#include "leds.h"
-
-/* === Macros definitions
- * ====================================================================== */
-
-/* === Private data type declarations
- * ========================================================== */
-
-/* === Private variable declarations
+/* === Public data type declarations
  * =========================================================== */
 
-/* === Private function declarations
- * =========================================================== */
-
-/* === Public variable definitions
- * ============================================================= */
-
-/* === Private variable definitions
+/* === Public variable declarations
  * ============================================================ */
 
-/* === Private function implementation
- * ========================================================= */
+/* === Public function declarations
+ * ============================================================ */
 
-/* === Public function implementation
- * ========================================================== */
-
-void test_todos_los_tests_arrancan_apagados(void) {
-    uint16_t puerto_virtual = 1;
-
-    LedsInit(&puerto_virtual);
-
-    TEST_ASSERT_EQUAL(0, puerto_virtual);
-}
+/**
+ * @brief Función para inicializar los leds
+ *
+ * @param uint16_t * puerto de los leds
+ */
+void LedsInit(uint16_t * puerto);
 
 /* === End of documentation
  * ==================================================================== */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LEDS_H */

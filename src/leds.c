@@ -23,13 +23,12 @@ SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
 /** @file
- ** @brief Funciones de TEST del controlador de leds
+ ** @brief Funciones del controlador de leds
  **/
 
 /* === Headers files inclusions
  * =============================================================== */
 
-#include "unity.h"
 #include "leds.h"
 
 /* === Macros definitions
@@ -56,12 +55,8 @@ SPDX-License-Identifier: MIT
 /* === Public function implementation
  * ========================================================== */
 
-void test_todos_los_tests_arrancan_apagados(void) {
-    uint16_t puerto_virtual = 1;
-
-    LedsInit(&puerto_virtual);
-
-    TEST_ASSERT_EQUAL(0, puerto_virtual);
+void LedsInit(uint16_t * puerto) {
+    *puerto = 0;
 }
 
 /* === End of documentation
