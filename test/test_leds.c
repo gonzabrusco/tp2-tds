@@ -27,11 +27,13 @@ SPDX-License-Identifier: MIT
  **/
 
 /**
- * @todo Prendo y apago un led con algunos prendidos y otros apagados
  * @todo Consulto el estado de un led prendido
  * @todo Consulto el estado de un led apagado
  * @todo Con todos los leds apagados los prendo todos juntos
  * @todo Con todos los leds prendidos los apago todos juntos
+ *
+ * <-- como minimo para el tp1
+ *
  * @todo Probaria el led 1 y el 16
  * @todo Probaria fuera de los limtes de los argumentos
  * @todo Probar que ocurre cuando el puerto es NULL
@@ -101,6 +103,29 @@ void test_apagar_un_led_prendido(void) {
 
     // Se revisa que los leds queden apagados
     TEST_ASSERT_EQUAL(0, puerto_virtual);
+}
+
+void test_prender_varios_leds() {
+    // Enciendo y apago algunos leds
+    LedTurnOn(5);
+    LedTurnOn(3);
+
+    TEST_ASSERT_BIT_HIGH(4, puerto_virtual);
+    TEST_ASSERT_BIT_HIGH(2, puerto_virtual);
+}
+
+void test_prender_y_apagar_varios_leds() {
+    // Enciendo y apago algunos leds
+    LedTurnOn(5);
+    LedTurnOn(3);
+    LedTurnOn(3);
+    LedTurnOff(5);
+    LedTurnOff(2);
+
+    TEST_ASSERT_BIT_LOW(4, puerto_virtual);
+    TEST_ASSERT_BIT_HIGH(2, puerto_virtual);
+    TEST_ASSERT_BIT_LOW(1, puerto_virtual);
+    TEST_ASSERT_BITS_LOW(~(1 << 2), puerto_virtual);
 }
 
 /* === End of documentation

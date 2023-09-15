@@ -34,6 +34,15 @@ SPDX-License-Identifier: MIT
 /* === Macros definitions
  * ====================================================================== */
 
+// Constante con el 1 necesario para encender un led
+#define LED_ON_STATE 1
+
+// Constante para apagar todos los leds
+#define LED_ALL_OFF 0
+
+// Offset que relaciona un numero de led con el bit correspondiente
+#define LED_OFFSET 1
+
 /* === Private data type declarations
  * ========================================================== */
 
@@ -54,20 +63,29 @@ static uint16_t * direccion_puerto;
 /* === Private function implementation
  * ========================================================= */
 
+/**
+ * @brief Función para obtener una mascara correspondiente al led indicado
+ *
+ * @param led numero de led para obtener la mascara
+ */
+static uint16_t LedToMask(unsigned int led) {
+    return LED_ON_STATE << (led - LED_OFFSET);
+}
+
 /* === Public function implementation
  * ========================================================== */
 
 void LedsInit(uint16_t * puerto) {
     direccion_puerto = puerto;
-    *puerto = 0;
+    *direccion_puerto = LED_ALL_OFF;
 }
 
 void LedTurnOn(unsigned int led) {
-    *direccion_puerto = 1 << 4;
+    *direccion_puerto |= LedToMask(led);
 }
 
 void LedTurnOff(unsigned int led) {
-    *direccion_puerto = 0;
+    *direccion_puerto &= ~LedToMask(led);
 }
 
 /* === End of documentation
