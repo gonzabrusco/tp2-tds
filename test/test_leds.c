@@ -26,6 +26,19 @@ SPDX-License-Identifier: MIT
  ** @brief Funciones de TEST del controlador de leds
  **/
 
+/**
+ * @todo Apago un led prendido
+ * @todo Prendo y apago un led con algunos prendidos y otros apagados
+ * @todo Consulto el estado de un led prendido
+ * @todo Consulto el estado de un led apagado
+ * @todo Con todos los leds apagados los prendo todos juntos
+ * @todo Con todos los leds prendidos los apago todos juntos
+ * @todo Probaria el led 1 y el 16
+ * @todo Probaria fuera de los limtes de los argumentos
+ * @todo Probar que ocurre cuando el puerto es NULL
+ * @todo Probar que ocurre si intentan usar un led sin antes inicializar el controlador
+ */
+
 /* === Headers files inclusions
  * =============================================================== */
 
@@ -57,11 +70,29 @@ SPDX-License-Identifier: MIT
  * ========================================================== */
 
 void test_todos_los_tests_arrancan_apagados(void) {
-    uint16_t puerto_virtual = 1;
+    // Se define una variable que representa al puerto con todos los leds encendidos
+    uint16_t puerto_virtual = 0xFF;
 
+    // Inicializo el puerto
     LedsInit(&puerto_virtual);
 
+    // Se revisa que los leds queden apagados
     TEST_ASSERT_EQUAL(0, puerto_virtual);
+}
+
+void test_encender_un_led_apagado(void) {
+    // Se define una variable que representa al puerto
+    uint16_t puerto_virtual;
+
+    // Inicializo el puerto
+    LedsInit(&puerto_virtual);
+
+    // Enciendo un led
+    LedTurnOn(5);
+
+    // Se revisa que el led 5 este encendido y e resto apagado
+    TEST_ASSERT_BIT_HIGH(4, puerto_virtual);
+    TEST_ASSERT_BITS_LOW(~(1 << 4), puerto_virtual);
 }
 
 /* === End of documentation

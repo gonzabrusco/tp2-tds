@@ -56,9 +56,16 @@ extern "C" {
 /**
  * @brief Función para inicializar los leds
  *
- * @param uint16_t * puerto de los leds
+ * @param puerto direccion de puerto de entrada/salida de los leds
  */
 void LedsInit(uint16_t * puerto);
+
+/**
+ * @brief Función para encender un led
+ *
+ * @param led numero de led a prender (1 a 16)
+ */
+void LedTurnOn(unsigned int led);
 
 /* === End of documentation
  * ==================================================================== */
