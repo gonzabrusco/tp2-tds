@@ -66,5 +66,9 @@ void LedTurnOn(unsigned int led) {
     *direccion_puerto = 1 << 4;
 }
 
+void LedTurnOff(unsigned int led) {
+    *direccion_puerto = 0;
+}
+
 /* === End of documentation
  * ==================================================================== */

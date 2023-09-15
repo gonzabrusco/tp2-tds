@@ -27,7 +27,6 @@ SPDX-License-Identifier: MIT
  **/
 
 /**
- * @todo Apago un led prendido
  * @todo Prendo y apago un led con algunos prendidos y otros apagados
  * @todo Consulto el estado de un led prendido
  * @todo Consulto el estado de un led apagado
@@ -62,12 +61,17 @@ SPDX-License-Identifier: MIT
 
 /* === Private variable definitions
  * ============================================================ */
+static uint16_t puerto_virtual;
 
 /* === Private function implementation
  * ========================================================= */
 
 /* === Public function implementation
  * ========================================================== */
+
+void setUp(void) {
+    LedsInit(&puerto_virtual);
+}
 
 void test_todos_los_tests_arrancan_apagados(void) {
     // Se define una variable que representa al puerto con todos los leds encendidos
@@ -81,18 +85,22 @@ void test_todos_los_tests_arrancan_apagados(void) {
 }
 
 void test_encender_un_led_apagado(void) {
-    // Se define una variable que representa al puerto
-    uint16_t puerto_virtual;
-
-    // Inicializo el puerto
-    LedsInit(&puerto_virtual);
-
     // Enciendo un led
     LedTurnOn(5);
 
     // Se revisa que el led 5 este encendido y e resto apagado
     TEST_ASSERT_BIT_HIGH(4, puerto_virtual);
     TEST_ASSERT_BITS_LOW(~(1 << 4), puerto_virtual);
+}
+
+void test_apagar_un_led_prendido(void) {
+    // Enciendo un led
+    LedTurnOn(5);
+    // Apago el mismo led
+    LedTurnOff(5);
+
+    // Se revisa que los leds queden apagados
+    TEST_ASSERT_EQUAL(0, puerto_virtual);
 }
 
 /* === End of documentation

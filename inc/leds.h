@@ -67,6 +67,13 @@ void LedsInit(uint16_t * puerto);
  */
 void LedTurnOn(unsigned int led);
 
+/**
+ * @brief Función para apagar un led
+ *
+ * @param led numero de led a apagar (1 a 16)
+ */
+void LedTurnOff(unsigned int led);
+
 /* === End of documentation
  * ==================================================================== */
 
