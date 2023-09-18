@@ -27,13 +27,6 @@ SPDX-License-Identifier: MIT
  **/
 
 /**
- * @todo Consulto el estado de un led prendido
- * @todo Consulto el estado de un led apagado
- * @todo Con todos los leds apagados los prendo todos juntos
- * @todo Con todos los leds prendidos los apago todos juntos
- *
- * <-- como minimo para el tp1
- *
  * @todo Probaria el led 1 y el 16
  * @todo Probaria fuera de los limtes de los argumentos
  * @todo Probar que ocurre cuando el puerto es NULL
@@ -126,6 +119,53 @@ void test_prender_y_apagar_varios_leds() {
     TEST_ASSERT_BIT_HIGH(2, puerto_virtual);
     TEST_ASSERT_BIT_LOW(1, puerto_virtual);
     TEST_ASSERT_BITS_LOW(~(1 << 2), puerto_virtual);
+}
+
+void test_consultar_estado_led_prendido() {
+    // Enciendo dos leds (la funcion setup los inicializa apagados)
+    LedTurnOn(9);
+    LedTurnOn(3);
+
+    // Consulto el estado de los leds
+    unsigned int led1 = LedStatus(9);
+    unsigned int led2 = LedStatus(3);
+
+    TEST_ASSERT_EQUAL(1, led1);
+    TEST_ASSERT_EQUAL(1, led2);
+}
+
+void test_consultar_estado_led_apagado() {
+    // Enciendo dos leds (la funcion setup los inicializa apagados)
+    LedTurnOn(10);
+    LedTurnOn(4);
+
+    // Los apago
+    LedTurnOff(10);
+    LedTurnOff(4);
+
+    // Consulto el estado de los leds
+    unsigned int led1 = LedStatus(10);
+    unsigned int led2 = LedStatus(4);
+
+    TEST_ASSERT_EQUAL(0, led1);
+    TEST_ASSERT_EQUAL(0, led2);
+}
+
+void test_encender_todos_los_leds_juntos() {
+    // Los leds comienzan apagados
+
+    LedTurnOnAll();
+
+    TEST_ASSERT_EQUAL(0xFFFF, puerto_virtual);
+}
+
+void test_apagar_todos_los_leds_juntos() {
+    // Los leds comienzan apagados. Los enciendo.
+    LedTurnOnAll();
+    // Los apago todos
+    LedTurnOffAll();
+
+    TEST_ASSERT_EQUAL(0, puerto_virtual);
 }
 
 /* === End of documentation

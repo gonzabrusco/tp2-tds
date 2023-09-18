@@ -74,6 +74,24 @@ void LedTurnOn(unsigned int led);
  */
 void LedTurnOff(unsigned int led);
 
+/**
+ * @brief Función para consultar el estado de un led
+ *
+ * @param led numero de led a consultar (1 a 16)
+ * @return 1 si esta encendido, 0 si esta apagado.
+ */
+unsigned int LedStatus(unsigned int led);
+
+/**
+ * @brief Función para encender todos los leds simultaneamente
+ */
+void LedTurnOnAll();
+
+/**
+ * @brief Función para apagar todos los leds simultaneamente
+ */
+void LedTurnOffAll();
+
 /* === End of documentation
  * ==================================================================== */
 

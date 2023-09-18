@@ -39,6 +39,8 @@ SPDX-License-Identifier: MIT
 
 // Constante para apagar todos los leds
 #define LED_ALL_OFF 0
+// Constante para encender todos los leds
+#define LED_ALL_ON 0xFFFF
 
 // Offset que relaciona un numero de led con el bit correspondiente
 #define LED_OFFSET 1
@@ -77,7 +79,7 @@ static uint16_t LedToMask(unsigned int led) {
 
 void LedsInit(uint16_t * puerto) {
     direccion_puerto = puerto;
-    *direccion_puerto = LED_ALL_OFF;
+    LedTurnOffAll();
 }
 
 void LedTurnOn(unsigned int led) {
@@ -86,6 +88,18 @@ void LedTurnOn(unsigned int led) {
 
 void LedTurnOff(unsigned int led) {
     *direccion_puerto &= ~LedToMask(led);
+}
+
+unsigned int LedStatus(unsigned int led) {
+    return (*direccion_puerto & LedToMask(led)) >> (led - LED_OFFSET);
+}
+
+void LedTurnOnAll() {
+    *direccion_puerto = LED_ALL_ON;
+}
+
+void LedTurnOffAll() {
+    *direccion_puerto = LED_ALL_OFF;
 }
 
 /* === End of documentation
